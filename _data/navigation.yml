@@ -1,0 +1,11 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "Research"
+    url: /research/
+  - title: "Blog"
+    url: /year-archive/
+  - title: "About"
+    url: /about/
+  - title: "Contact"
+    url: /contact/
