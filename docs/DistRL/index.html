@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Distributional Reinforcement Learning for Large Language Models</title>
-  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description" content="Distributional Reinforcement Learning for Large Language Models">
+  <meta name="keywords" content="Distributional RL, LLM, Reinforcement Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DistRL: Distributional RL for LLMs</title>
+
   <!-- Static CSS files -->
   <link rel="stylesheet" href="../static/bulma.min.css">
+  <link rel="stylesheet" href="../static/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/bulma-slider.min.css">
   <link rel="stylesheet" href="../static/fontawesome.all.min.css">
   <link rel="stylesheet" href="../static/academicons.min.css">
   <link rel="stylesheet" href="../static/index.css">
-  
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/fontawesome.all.min.js"></script>
+  <script src="../static/bulma-carousel.min.js"></script>
+  <script src="../static/bulma-slider.min.js"></script>
   
   <!-- MathJax -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -21,172 +31,189 @@
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="../">
-        <span class="icon">
-          <i class="fas fa-arrow-left"></i>
-        </span>
-        <span>Back to Research Directory</span>
-      </a>
-    </div>
-  </nav>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="../">
+      <span class="icon">
+        <i class="fas fa-arrow-left"></i>
+      </span>
+      <span>Back to Research Directory</span>
+    </a>
+  </div>
+</nav>
 
-  <!-- Header Section -->
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Distributional Reinforcement Learning for Large Language Models</h1>
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a href="#">Zhijian Zhou</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="#">Author 2</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="#">Author 3</a><sup>2</sup>
-              </span>
-            </div>
-
-            <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>University/Institution 1,</span>
-              <span class="author-block"><sup>2</sup>University/Institution 2</span>
-            </div>
-
-            <div class="column has-text-centered">
-              <div class="publication-links">
-                <!-- PDF Link -->
-                <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                    </span>
-                    <span>Paper</span>
-                  </a>
-                </span>
-                
-                <!-- Code Link -->
-                <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-                
-                <!-- ArXiv Link -->
-                <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                    </span>
-                    <span>arXiv</span>
-                  </a>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Abstract -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              Actor-critic reinforcement learning for large language models (LLMs) typically relies on a scalar 
-              value function, discarding crucial information about potential returns. We propose a distributional 
-              actor-critic framework that learns the full distribution of returns to guide exploration more effectively. 
-              Our method incorporates distributional generalized advantage estimation (D-GAE) and distributional 
-              lower-tail variance (DLTV) bonus to enhance exploration in the uncertainty-rich environment of LLM reasoning.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <section class="section">
+<section class="hero">
+  <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <div class="content">
-            
-            <h2 class="title is-4">1. Introduction</h2>
-            <p>
-              Large language models (LLMs) have recently achieved remarkable progress in various reasoning tasks. 
-              However, traditional reinforcement learning approaches for LLMs rely on scalar value functions, 
-              potentially missing crucial distributional information that could guide more effective exploration.
-            </p>
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <span>Distributional Reinforcement Learning for Large Language Models</span>
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#"><b>Zhijian Zhou</b></a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#"><b>Author 2</b></a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#"><b>Author 3</b></a><sup>2</sup>
+            </span>
+          </div>
 
-            <h2 class="title is-4">2. Preliminaries</h2>
-            <p>
-              A Markov Decision Process (MDP) is defined by the tuple \((S, A, P, R, \gamma)\) where \(S\) is the 
-              state space, \(A\) is the action space, \(P\) is the transition probability, \(R\) is the reward 
-              function, and \(\gamma\) is the discount factor.
-            </p>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block" style="margin-right: 15px;"><sup>1</sup>University/Institution 1,</span>
+            <span class="author-block" style="margin-right: 15px;"><sup>2</sup>University/Institution 2</span>
+          </div>
 
-            <h2 class="title is-4">3. Method</h2>
-            <p>
-              We propose a distributional actor-critic framework that extends traditional policy gradient methods 
-              by learning the full return distribution. Our approach includes two key innovations: Distributional 
-              Generalized Advantage Estimation (D-GAE) and Distributional Lower-Tail Variance (DLTV) bonus.
-            </p>
-
-            <h2 class="title is-4">4. Related Work</h2>
-            <p>
-              Our work builds upon several lines of research: reinforcement learning for LLMs, distributional 
-              reinforcement learning, and exploration methods in RL. We extend distributional RL concepts to 
-              the unique challenges of language model fine-tuning.
-            </p>
-
-            <h2 class="title is-4">5. Experiments</h2>
-            <p>
-              We evaluate our method on challenging mathematical reasoning benchmarks including AIME24/25, MATH500, 
-              Minerva, and OlympiadBench. Our distributional approach consistently outperforms baseline methods 
-              across all tested domains.
-            </p>
-
-            <div class="has-text-centered">
-              <figure class="image">
-                <img src="../static/images/DistRL/distrl-fig2.png" alt="Figure 1" style="max-width: 80%;">
-                <figcaption class="is-size-6 has-text-grey">
-                  <strong>Figure 1:</strong> Comparison of uncertainty quantification in general RL vs. LLM RL scenarios.
-                </figcaption>
-              </figure>
+          <!-- Paper Links -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- ArXiv Link -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
             </div>
-
-            <h2 class="title is-4">6. Conclusion</h2>
-            <p>
-              We presented a distributional actor-critic framework for LLM fine-tuning that effectively captures 
-              return uncertainty to guide exploration. Our method achieves state-of-the-art results on Qwen2.5-Math-7B 
-              and demonstrates significant improvements on BeyondAIME benchmarks.
-            </p>
-
-            <h2 class="title is-4">References</h2>
-            <div class="content">
-              <ul>
-                <li>Bellemare, M. G., Dabney, W., & Munos, R. (2017). A Distributional Perspective on Reinforcement Learning. <em>ICML</em>.</li>
-                <li>Dabney, W., Rowland, M., Bellemare, M. G., & Munos, R. (2018). Distributional Reinforcement Learning with Quantile Regression. <em>AAAI</em>.</li>
-                <li>Schulman, J., Wolski, F., Dhariwal, P., Radford, A., & Klimov, O. (2017). Proximal Policy Optimization Algorithms. <em>arXiv preprint</em>.</li>
-                <li>Ouyang, L., Wu, J., Jiang, X., et al. (2022). Training language models to follow instructions with human feedback. <em>NeurIPS</em>.</li>
-              </ul>
-            </div>
-
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Actor-critic reinforcement learning for large language models (LLMs) typically relies on a scalar 
+            value function, discarding crucial information about potential returns. We propose a distributional 
+            actor-critic framework that learns the full distribution of returns to guide exploration more effectively. 
+            Our method incorporates distributional generalized advantage estimation (D-GAE) and distributional 
+            lower-tail variance (DLTV) bonus to enhance exploration in the uncertainty-rich environment of LLM reasoning. 
+            Extensive experiments on mathematical reasoning benchmarks demonstrate significant improvements over baseline methods.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method Overview -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method Overview</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="content has-text-centered" style="margin-top: 1cm;">
+        <img src="../static/images/DistRL/distrl-fig2.png" alt="DistRL Method">
+      </div>
+    </div>
+    
+    <div class="hero-body">
+      <h2 class="has-text-justified" style="margin-top: -1cm;">
+        <p class=""><strong>Figure 1:</strong> Comparison of uncertainty quantification in general RL vs. LLM RL scenarios. 
+        Our distributional approach captures the full return distribution rather than just scalar values, enabling more 
+        effective exploration in the uncertainty-rich environment of language model reasoning.</p>
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content">
+          
+          <h2 class="title is-4">1. Introduction</h2>
+          <p>
+            Large language models (LLMs) have recently achieved remarkable progress in various reasoning tasks. 
+            However, traditional reinforcement learning approaches for LLMs rely on scalar value functions, 
+            potentially missing crucial distributional information that could guide more effective exploration.
+            Our work addresses this limitation by proposing a distributional actor-critic framework.
+          </p>
+
+          <h2 class="title is-4">2. Preliminaries</h2>
+          <p>
+            A Markov Decision Process (MDP) is defined by the tuple \((S, A, P, R, \gamma)\) where \(S\) is the 
+            state space, \(A\) is the action space, \(P\) is the transition probability, \(R\) is the reward 
+            function, and \(\gamma\) is the discount factor. In the context of LLM fine-tuning, states correspond 
+            to partial sequences, actions to token selections, and rewards to task-specific feedback.
+          </p>
+
+          <h2 class="title is-4">3. Method</h2>
+          <p>
+            We propose a distributional actor-critic framework that extends traditional policy gradient methods 
+            by learning the full return distribution. Our approach includes two key innovations: <strong>Distributional 
+            Generalized Advantage Estimation (D-GAE)</strong> and <strong>Distributional Lower-Tail Variance (DLTV) bonus</strong>. 
+            These components work together to provide more informative exploration signals for LLM reasoning tasks.
+          </p>
+
+          <h2 class="title is-4">4. Experiments</h2>
+          <p>
+            We evaluate our method on challenging mathematical reasoning benchmarks including AIME24/25, MATH500, 
+            Minerva, and OlympiadBench. Our distributional approach consistently outperforms baseline methods 
+            across all tested domains, achieving state-of-the-art results on Qwen2.5-Math-7B and significant 
+            improvements on BeyondAIME benchmarks.
+          </p>
+
+          <h2 class="title is-4">5. Conclusion</h2>
+          <p>
+            We presented a distributional actor-critic framework for LLM fine-tuning that effectively captures 
+            return uncertainty to guide exploration. The proposed D-GAE and DLTV bonus mechanisms enable more 
+            robust and effective learning in the complex reasoning scenarios typical of large language models.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@article{distrl2024,
+  title={Distributional Reinforcement Learning for Large Language Models},
+  author={Zhou, Zhijian and others},
+  journal={arXiv preprint},
+  year={2024}
+}
+    </code></pre>
+  </div>
+</section>
 
 </body>
 </html>
