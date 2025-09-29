@@ -58,3 +58,22 @@ pre code.language-bibtex {
   background: #fdf6e3;
   border-left: 4px solid #b58900;
 }
+
+/* --- Paper hero --- */
+.paper-hero { text-align:center; margin: 1.25rem auto 2rem; max-width: 980px; }
+.paper-hero__title { font-size: 2.2rem; line-height:1.25; font-weight:800; margin: 0 0 .75rem; }
+.paper-hero__subtitle { font-size:1.05rem; color:#444; margin:.25rem 0 1rem; }
+.paper-hero__authors { font-size:1rem; line-height:1.6; }
+.paper-hero__authors a { text-decoration:none; }
+.paper-hero__affils { font-size:.95rem; color:#666; margin:.5rem 0 1rem; }
+.paper-hero__accept { font-size:1rem; margin:.6rem 0 1rem; }
+.paper-hero__accept .tag { color:#d14; font-weight:700; }
+
+.pill-buttons { display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin: 1rem 0 1.25rem;}
+.pill-buttons .btn { border-radius:999px; padding:.6rem 1rem; font-weight:600; }
+.pill-buttons .btn--ghost { background:#f4f6fa; border:1px solid #dfe3ea; }
+.pill-buttons .btn--dark { background:#222; color:#fff; }
+.pill-buttons .btn--primary { background:#0c3c78; color:#fff; }
+
+/* 文章内大图类似海报的边距 */
+.figure--poster img { border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,.08); }
