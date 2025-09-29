@@ -1,5 +1,6 @@
 title: "Zhijian Zhou"
 description: "Personal academic homepage & blog"
+minimal_mistakes_skin: "air"   # 学术清爽风：air / contrast / default 都行
 
 # ❌ 删掉这行（会去找本地Gem）
 # theme: minimal-mistakes-jekyll
