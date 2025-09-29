@@ -122,11 +122,10 @@
             Actor-critic reinforcement learning for large language models (LLMs) typically
             relies on a scalar value function, discarding crucial information about potential
             returns. We propose a distributional actor-critic framework that learns the full
-            distribution of returns to guide exploration more effectively. We find that in deter-
+            distribution of returns to guide exploration more effectively. We find that in deter
             ministic reasoning tasks, the spread of this learned distribution directly measures
-            the model’s confidence in its own value estimates. Our method harnesses this sig-
-            nal through an optimistic exploration bonus derived from the distribution’s upper-
-            tail variance, guiding the policy toward promising yet uncertain reasoning paths.
+            the model’s confidence in its own value estimates. Our method harnesses this sig
+            nal through an optimistic exploration bonus derived from the distribution’s upper-tail variance, guiding the policy toward promising yet uncertain reasoning paths.
             This uncertainty-guided exploration promotes the discovery of diverse correct so
             lutions, leading to substantial gains in pass@k across challenging benchmarks.
             This result demonstrates a significant enhancement of the model’s upper-bound
