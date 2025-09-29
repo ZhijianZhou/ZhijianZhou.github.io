@@ -21,3 +21,12 @@ defaults:
     values: { layout: single, author_profile: true }
   - scope: { path: "", type: "posts" }
     values: { layout: single, author_profile: true }
+
+# 在已有配置后面加上
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# 确认这个路径存在
+include:
+  - assets/css
