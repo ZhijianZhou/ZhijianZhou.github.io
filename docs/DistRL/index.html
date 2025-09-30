@@ -534,51 +534,49 @@
                       demonstrating stronger upper-bound reasoning capacity.
                     </p>
                   </div>
-                </section>
-                <section style="margin-top: 2em; margin-bottom: 2em;">
-                  <h3 class="title is-5">Qualitative Analysis of the Exploration Mechanism</h3>
-                
-                  <p>
-                    To qualitatively understand how our uncertainty-guided exploration shapes the model's behavior, 
-                    we visualize the sentences that receive the highest exploration bonuses at different stages of training. 
-                    <strong>Figure&nbsp;4</strong> contrasts the top-10 high-bonus sentences from an early checkpoint (step&nbsp;20) 
-                    with those from a more mature checkpoint (step&nbsp;80).
-                  </p>
-                
-                  <p>
-                    <strong>At the early stage of training (step&nbsp;20)</strong>, the bonus predominantly targets sentences related to 
-                    <em>foundational components</em> of the reasoning process. These include low-level problem setups and computational fragments, 
-                    such as <em>"to find the maximum number of divisors ..."</em> and <em>"[930 ⋅ k - 62 ... ]"</em>. 
-                    This suggests that the model is initially uncertain about basic problem formulation 
-                    and uses the exploration signal to solidify its understanding of diverse entry points into the solution space.
-                  </p>
-                
-                  <p>
-                    <strong>By the later stage (step&nbsp;80)</strong>, the high-bonus sentences are no longer computational but rather 
-                    <em>strategic and structural</em> in nature. The focus moves to meta-reasoning prompts that organize the solution pathway, 
-                    such as <em>"let’s start by setting up the geometric configuration"</em> and <em>"let’s reason step-by-step"</em>. 
-                    This transition indicates that the distributional critic has learned to incentivize the exploration of high-level reasoning strategies, 
-                    rather than isolated calculations.
-                  </p>
-                
-                  <p>
-                    In summary, this visualization provides compelling evidence that our exploration mechanism is not random but <strong>programmatic</strong>. 
-                    It progressively guides the model's learning process, shifting its focus from surface-level, trial-and-error computations 
-                    toward the construction of coherent and structured reasoning strategies. 
-                    This observed evolution from computational to strategic uncertainty aligns perfectly with the quantitative improvements 
-                    seen in our benchmark results.
-                  </p>
-                
-                  <div class="content has-text-centered" style="margin-top: 1.5em;">
-                    <img src="../static/images/DistRL/dual_high_variance_comparison.png"
-                         alt="Top-10 high-variance sentences at steps 20 and 80"
-                         style="max-width: 80%; margin-bottom: 0.8em;">
-                    <p class="is-size-6">
-                      <strong>Figure 4:</strong> Sentences with the highest exploration bonuses at two training stages.  
-                      Early (step&nbsp;20): scattered numeric fragments and problem setup.  
-                      Later (step&nbsp;80): structured reasoning prompts, showing a shift toward programmatic exploration.
+                    <h3 class="title is-5">Qualitative Analysis of the Exploration Mechanism</h3>
+                  
+                    <p>
+                      To qualitatively understand how our uncertainty-guided exploration shapes the model's behavior, 
+                      we visualize the sentences that receive the highest exploration bonuses at different stages of training. 
+                      <strong>Figure&nbsp;4</strong> contrasts the top-10 high-bonus sentences from an early checkpoint (step&nbsp;20) 
+                      with those from a more mature checkpoint (step&nbsp;80).
                     </p>
-                  </div>
+                  
+                    <p>
+                      <strong>At the early stage of training (step&nbsp;20)</strong>, the bonus predominantly targets sentences related to 
+                      <em>foundational components</em> of the reasoning process. These include low-level problem setups and computational fragments, 
+                      such as <em>"to find the maximum number of divisors ..."</em> and <em>"[930 ⋅ k - 62 ... ]"</em>. 
+                      This suggests that the model is initially uncertain about basic problem formulation 
+                      and uses the exploration signal to solidify its understanding of diverse entry points into the solution space.
+                    </p>
+                  
+                    <p>
+                      <strong>By the later stage (step&nbsp;80)</strong>, the high-bonus sentences are no longer computational but rather 
+                      <em>strategic and structural</em> in nature. The focus moves to meta-reasoning prompts that organize the solution pathway, 
+                      such as <em>"let’s start by setting up the geometric configuration"</em> and <em>"let’s reason step-by-step"</em>. 
+                      This transition indicates that the distributional critic has learned to incentivize the exploration of high-level reasoning strategies, 
+                      rather than isolated calculations.
+                    </p>
+                  
+                    <p>
+                      In summary, this visualization provides compelling evidence that our exploration mechanism is not random but <strong>programmatic</strong>. 
+                      It progressively guides the model's learning process, shifting its focus from surface-level, trial-and-error computations 
+                      toward the construction of coherent and structured reasoning strategies. 
+                      This observed evolution from computational to strategic uncertainty aligns perfectly with the quantitative improvements 
+                      seen in our benchmark results.
+                    </p>
+                  
+                    <div class="content has-text-centered" style="margin-top: 1.5em;">
+                      <img src="../static/images/DistRL/dual_high_variance_comparison.png"
+                          alt="Top-10 high-variance sentences at steps 20 and 80"
+                          style="max-width: 80%; margin-bottom: 0.8em;">
+                      <p class="is-size-6">
+                        <strong>Figure 4:</strong> Sentences with the highest exploration bonuses at two training stages.  
+                        Early (step&nbsp;20): scattered numeric fragments and problem setup.  
+                        Later (step&nbsp;80): structured reasoning prompts, showing a shift toward programmatic exploration.
+                      </p>
+                    </div>
                 </section>
         </div>
       </div>
