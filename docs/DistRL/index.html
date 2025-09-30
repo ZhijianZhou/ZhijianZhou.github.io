@@ -433,6 +433,39 @@
                   We report <strong>Pass@k</strong> (success if at least one of k samples is correct) and <strong>Avg@k</strong> (average correctness across k samples), 
                   following standard decoding protocols.
                 </p>
+                <h3 class="title is-5">Results on Reasoning Benchmarks</h3>
+
+                <div class="table-container">
+                  <table class="table is-striped is-hoverable is-fullwidth has-text-centered">
+                    <caption>Performance on reasoning benchmarks with pass@<em>k</em>. Best results in <b>bold</b>, second best <u>underlined</u>. Δ rows show DistRL vs. PPO.</caption>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>AIME25<br><em>pass@256</em></th>
+                        <th>AIME24<br><em>pass@256</em></th>
+                        <th>Minerva<br><em>pass@16</em></th>
+                        <th>MATH500<br><em>pass@16</em></th>
+                        <th>Olympiad<br><em>pass@16</em></th>
+                        <th>College<br><em>pass@8</em></th>
+                        <th>Avg.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td><em>Qwen2.5-Math-7B</em></td><td>53.3</td><td>70.0</td><td>50.4</td><td>88.6</td><td>56.7</td><td>44.2</td><td>60.5</td></tr>
+                      <tr><td>+ GRPO</td><td>50.0</td><td><u>76.7</u></td><td>64.0</td><td>91.8</td><td>59.7</td><td>49.2</td><td>65.8</td></tr>
+                      <tr><td>+ DAPO</td><td>56.7</td><td><u>76.7</u></td><td>66.9</td><td><u>92.0</u></td><td>60.9</td><td>48.3</td><td>66.9</td></tr>
+                      <tr><td>+ PPO</td><td><u>60.0</u></td><td>73.3</td><td><u>67.7</u></td><td>91.0</td><td><u>61.3</u></td><td><u>50.2</u></td><td><u>67.3</u></td></tr>
+                      <tr style="background-color:#eef6ff;"><td>+ DistRL</td><td><b>63.3</b></td><td><b>86.7</b></td><td><b>68.4</b></td><td><b>93.6</b></td><td><b>64.6</b></td><td><b>50.8</b></td><td><b>71.2</b></td></tr>
+                      <tr><td>Δ</td><td><span style="color:green;">+3.3</span></td><td><span style="color:green;">+13.4</span></td><td><span style="color:green;">+0.7</span></td><td><span style="color:green;">+2.6</span></td><td><span style="color:green;">+3.3</span></td><td><span style="color:green;">+0.6</span></td><td><span style="color:green;">+3.9</span></td></tr>
+
+                      <tr><td><em>Qwen2.5-7B</em></td><td><b>53.3</b></td><td><b>56.7</b></td><td>50.0</td><td><u>84.2</u></td><td>52.7</td><td><b>47.2</b></td><td><u>57.3</u></td></tr>
+                      <tr><td>+ PPO</td><td>40.0</td><td>46.7</td><td><b>62.5</b></td><td><b>88.2</b></td><td><u>53.3</u></td><td>45.9</td><td>56.1</td></tr>
+                      <tr style="background-color:#eef6ff;"><td>+ DistRL</td><td><u>46.7</u></td><td><u>50.0</u></td><td><u>62.1</u></td><td><b>88.2</b></td><td><b>56.7</b></td><td><u>46.3</u></td><td><b>58.3</b></td></tr>
+                      <tr><td>Δ</td><td><span style="color:green;">+6.7</span></td><td><span style="color:green;">+3.3</span></td><td><span style="color:red;">-0.4</span></td><td>0.0</td><td><span style="color:green;">+3.4</span></td><td><span style="color:green;">+0.4</span></td><td><span style="color:green;">+2.2</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
         </div>
       </div>
     </div>
