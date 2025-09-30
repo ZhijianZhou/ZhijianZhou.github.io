@@ -420,8 +420,19 @@
               <p>
                 ensuring \( q^{(1)}(t) &lt; q^{(2)}(t) &lt; \cdots &lt; q^{(N)}(t) \) by construction.
               </p>
+              <h2 class="title is-4">Experiments</h2>
 
+                <h3 class="title is-5">Experiment Setup</h3>
 
+                <p>
+                  We evaluate our method on the DAPO-Math-17k dataset of 17K curated competition-style math problems, 
+                  using two 7B-parameter backbones from the Qwen2.5 series: the math-specialized Qwen2.5-Math-7B and the general-purpose Qwen2.5-7B-Base. 
+                  Baselines include GRPO, DAPO, and PPO; to ensure fairness, the PPO implementation is strengthened with recent techniques such as 
+                  Clip-Higher rewards, token-level loss, critic pre-training, and group sampling. 
+                  Performance is assessed on AIME2024/25, MATH500, AMC, OlympiadBench, College Math, Minerva, and the challenging BeyondAIME benchmark. 
+                  We report <strong>Pass@k</strong> (success if at least one of k samples is correct) and <strong>Avg@k</strong> (average correctness across k samples), 
+                  following standard decoding protocols.
+                </p>
         </div>
       </div>
     </div>
