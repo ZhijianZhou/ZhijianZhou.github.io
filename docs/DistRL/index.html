@@ -250,16 +250,16 @@
               </p>
             </div>
 
-            <h2 class="title is-4">3. Method</h2>
+            <h2 class="title is-4">Method</h2>
 
               <p>
                 We propose a <strong>distributional actor–critic framework</strong> designed to enhance the reasoning capabilities of large language models (LLMs).
                 Our approach operates within an on-policy RL loop, akin to PPO, where trajectories are iteratively sampled and used for policy and value function updates.
                 The core innovation lies in replacing the conventional scalar critic with a <em>distributional critic</em> that models the entire probability
                 distribution of the state-value return, denoted by the random variable \( Z^\pi(s) \).
-                This richer representation serves two synergistic purposes:
+                This richer representation serves two synergistic purposes (see <strong>Figure&nbsp;2</strong> for an overview of our framework).
               </p>
-
+            
               <ol style="margin-left:1.25rem;">
                 <li>
                   It provides stable, multi-step <em>distributional</em> targets for robust critic training, achieved via
@@ -286,7 +286,7 @@
                 which are cumulatively added (left/right) to form the ordered quantiles (see “Center–Delta Quantile Head” below).
               </p>
 
-              <h3 class="title is-5">3.1 Critic Update via Distributional GAE</h3>
+              <h3 class="title is-5">Critic Update via Distributional GAE</h3>
               <p>
                 For each timestep \(t\), we compute \(N\) quantile-wise TD errors based on the state-value function:
               </p>
@@ -329,7 +329,7 @@
                 \]
               </p>
 
-              <h3 class="title is-5">3.2 Uncertainty-Guided Exploration with DLTV</h3>
+              <h3 class="title is-5">Uncertainty-Guided Exploration with DLTV</h3>
               <p>
                 We design a <strong>Decaying Left-Truncated Variance (DLTV)</strong> bonus to operationalize optimism in the face of uncertainty.
                 The exploration bonus for state \(s\) at training step \(T_{\text{step}}\) is
@@ -365,7 +365,7 @@
                 with coefficient \(c\) controlling the annealing rate.
               </p>
 
-              <h3 class="title is-5">3.3 Actor Update with Optimistic Advantage</h3>
+              <h3 class="title is-5">Actor Update with Optimistic Advantage</h3>
               <p>
                 We first compute a scalar baseline value by averaging the predicted quantiles:
               </p>
@@ -404,7 +404,7 @@
                 The optimistic advantage \( \tilde{A}_t \) is used in the PPO surrogate objective to update the policy.
               </p>
 
-              <h3 class="title is-5">3.4 Center–Delta Quantile Head</h3>
+              <h3 class="title is-5">Center–Delta Quantile Head</h3>
               <p>
                 To guarantee strictly ordered quantiles without post-hoc sorting, we use a <strong>center–delta</strong> head.
                 Given a hidden representation \(h_t\), one branch predicts a center quantile \(c_t\), and another predicts non-negative deltas
