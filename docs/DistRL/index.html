@@ -433,6 +433,15 @@
                   We report <strong>Pass@k</strong> (success if at least one of k samples is correct) and <strong>Avg@k</strong> (average correctness across k samples), 
                   following standard decoding protocols.
                 </p>
+                <h3 class="title is-5">Main Benchmarks</h3>
+                <p>
+                  Table&nbsp;1 summarizes results on six reasoning benchmarks. 
+                  DistRL consistently delivers the best performance on the Qwen2.5-Math-7B backbone, 
+                  improving upon PPO, GRPO, and DAPO. 
+                  Gains are particularly clear on challenging datasets such as AIME25 and OlympiadBench. 
+                  Results on the general-purpose Qwen2.5-7B confirm that our method generalizes 
+                  beyond math-specialized models.
+                </p>
                 <section>
                   <h3 class="title is-5">Table 1: Results on Reasoning Benchmarks</h3>
                   <p>
@@ -448,12 +457,12 @@
                       <thead>
                         <tr>
                           <th></th>
-                          <th>AIME25<br><em>256</em></th>
-                          <th>AIME24<br><em>256</em></th>
-                          <th>Minerva<br><em>16</em></th>
-                          <th>MATH500<br><em>16</em></th>
-                          <th>Olympiad<br><em>16</em></th>
-                          <th>College<br><em>8</em></th>
+                          <th>AIME25<br><em>Pass@256</em></th>
+                          <th>AIME24<br><em>Pass@256</em></th>
+                          <th>Minerva<br><em>Pass@16</em></th>
+                          <th>MATH500<br><em>Pass@16</em></th>
+                          <th>Olympiad<br><em>Pass@16</em></th>
+                          <th>College<br><em>Pass@8</em></th>
                           <th>Avg.</th>
                         </tr>
                       </thead>
@@ -480,12 +489,12 @@
                       <thead>
                         <tr>
                           <th></th>
-                          <th>AIME25<br><em>256</em></th>
-                          <th>AIME24<br><em>256</em></th>
-                          <th>Minerva<br><em>16</em></th>
-                          <th>MATH500<br><em>16</em></th>
-                          <th>Olympiad<br><em>16</em></th>
-                          <th>College<br><em>8</em></th>
+                          <th>AIME25<br><em>Avg@256</em></th>
+                          <th>AIME24<br><em>Avg@256</em></th>
+                          <th>Minerva<br><em>Avg@16</em></th>
+                          <th>MATH500<br><em>Avg@16</em></th>
+                          <th>Olympiad<br><em>Avg@16</em></th>
+                          <th>College<br><em>Avg@8</em></th>
                           <th>Avg.</th>
                         </tr>
                       </thead>
@@ -505,6 +514,28 @@
                     </table>
                   </div>
                 </section>
+                <section>
+                  <h3 class="title is-5">BeyondAIME Benchmark</h3>
+                  <p>
+                    We further evaluate on <em>BeyondAIME</em>, a large-scale and contamination-free math benchmark. 
+                    The <strong>Pass@k</strong> results in Figure&nbsp;3 show that DistRL consistently 
+                    outperforms PPO and other baselines, especially at large sampling budgets. 
+                    For example, DistRL achieves a <code>pass@1024</code> score of <b>58.0</b>, compared to <b>52.0</b> for PPO, 
+                    indicating stronger upper-bound reasoning ability.
+                  </p>
+                
+                  <div class="content has-text-centered" style="margin-top: 1em;">
+                    <img src="../static/images/DistRL/beyondaime_passk_clean.png" 
+                         alt="Pass@k results on BeyondAIME benchmark (Qwen2.5-Math-7B)" 
+                         style="max-width: 65%;">
+                    <p class="is-size-6">
+                      <strong>Figure 3:</strong> Pass@<em>k</em> results on BeyondAIME benchmark (Qwen2.5-Math-7B).  
+                      DistRL consistently outperforms PPO and other baselines, 
+                      demonstrating stronger upper-bound reasoning capacity.
+                    </p>
+                  </div>
+                </section>
+                
                 
                 
 
