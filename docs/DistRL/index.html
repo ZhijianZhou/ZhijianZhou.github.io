@@ -188,7 +188,7 @@
               addresses this by modeling the full return distribution \( Z^\pi(s,a) \), preserving information such 
               as variance and tail behavior that can provide richer signals for exploration and more robust learning.
             </p>
-
+            
             <p>
               Crucially, the learned distribution \( Z^\pi(s,a) \) captures two types of uncertainty. 
               <em>Intrinsic uncertainty</em> stems from randomness in environment dynamics or rewards, while 
@@ -198,9 +198,9 @@
               current tokens and chosen action, and rewards such as correctness are also deterministic. 
               As a result, intrinsic uncertainty vanishes, and the spread of the learned distribution can be 
               interpreted as a pure measure of <strong>parametric uncertainty</strong>—a direct signal of the 
-              critic’s confidence in its estimates.
+              critic’s confidence in its estimates (see <strong>Figure&nbsp;1</strong>).
             </p>
-
+            
             <p>
               This insight allows us to repurpose the distributional critic as a quantifier of estimation 
               uncertainty for guiding exploration. While conventional PPO-based methods discard this information 
@@ -210,6 +210,7 @@
               actions where the critic is uncertain about potentially high returns, enabling more directed and 
               efficient exploration in complex reasoning tasks.
             </p>
+          </h2>
 
             <h2 class="title is-4">Contributions</h2>
             <ul>
