@@ -231,6 +231,25 @@
                 superficial trial-and-error to more structured reasoning.
               </li>
             </ul>
+            <!-- Method Framework Figure -->
+            <div class="content has-text-centered" style="margin-top: 1.5cm; margin-bottom: 1.5cm;">
+              <img src="../static/images/DistRL/method.png" alt="DistRL Framework Overview" style="max-width:90%;">
+              <p style="margin-top: 0.5em;">
+                <strong>Figure 2:</strong> The actor maps a prompt to a response. 
+                The critic takes the prompt–response pair and, through a critic backbone 
+                (architecture identical to the actor's and initialized with the same parameters), 
+                produces hidden states \(h_s\) that are fed into a distributional critic head to yield a return distribution \(Q_{s_t}\). 
+                Unlike PPO's scalar head \(V_t\), our head outputs an ordered set of quantiles \(\{q_{s_t}^{(n)}\}\); 
+                the scalar value used in losses is the expectation of this distribution.
+                These quantiles supervise critic learning via quantile Huber regression and drive actor updates through
+                Distributional Generalized Advantage Estimation (D-GAE) with a Decaying Left-Truncated Variance (DLTV) exploration bonus. 
+                D-GAE returns (i) the multi-step target \(\hat{y}_t\) for quantile regression and (ii) an optimistic advantage \(\tilde{A}_t\) for actor learning. 
+                Black arrows indicate inference; red arrows indicate training (reward assignment, advantage estimation, critic optimization). 
+                Dashed boxes detail the center–delta quantile head (top left), the truncated-variance bonus \(B_{T_p}\) (top right), 
+                and the D-GAE equations (bottom right).
+              </p>
+            </div>
+
             <h2 class="title is-4">3. Method</h2>
 
               <p>
