@@ -182,18 +182,11 @@
           
           <h2 class="title is-4">Introduction</h2>
             <p>
-              In conventional actor–critic reinforcement learning, the critic estimates a scalar value function, 
-              such as \( Q^\pi(s,a) \) or \( V^\pi(s) \), representing the expected cumulative return under policy \(\pi\). 
-              While this captures average performance, it ignores higher-order characteristics of the return 
-              distribution—variance, skewness, and tail behavior. Such information can be critical for exploration 
-              and robust decision-making.
-            </p>
-
-            <p>
-              Distributional reinforcement learning (DistRL) addresses this limitation by modeling the full 
-              distribution of returns, \( Z^\pi(s,a) \), rather than only its expectation. Approaches such as 
-              Quantile Regression DQN (QR-DQN) and Implicit Quantile Networks (IQN) demonstrated improved 
-              performance by capturing this richer signal for learning.
+              In conventional actor–critic reinforcement learning, the critic estimates a scalar value function 
+              (e.g., \( Q^\pi(s,a) \) or \( V^\pi(s) \)), which captures only the expected return and ignores 
+              higher-order properties of the return distribution. Distributional reinforcement learning (DistRL) 
+              addresses this by modeling the full return distribution \( Z^\pi(s,a) \), preserving information such 
+              as variance and tail behavior that can provide richer signals for exploration and more robust learning.
             </p>
 
             <p>
@@ -237,6 +230,177 @@
                 superficial trial-and-error to more structured reasoning.
               </li>
             </ul>
+            <h2 class="title is-4">3. Method</h2>
+
+              <p>
+                We propose a <strong>distributional actor–critic framework</strong> designed to enhance the reasoning capabilities of large language models (LLMs).
+                Our approach operates within an on-policy RL loop, akin to PPO, where trajectories are iteratively sampled and used for policy and value function updates.
+                The core innovation lies in replacing the conventional scalar critic with a <em>distributional critic</em> that models the entire probability
+                distribution of the state-value return, denoted by the random variable \( Z^\pi(s) \).
+                This richer representation serves two synergistic purposes:
+              </p>
+
+              <ol style="margin-left:1.25rem;">
+                <li>
+                  It provides stable, multi-step <em>distributional</em> targets for robust critic training, achieved via
+                  <strong>Distributional Generalized Advantage Estimation (D-GAE)</strong>.
+                </li>
+                <li>
+                  It enables quantification of model uncertainty, which we harness for exploration through a
+                  <strong>Decaying Left-Truncated Variance (DLTV)</strong> bonus.
+                </li>
+              </ol>
+
+              <p>
+                A key distinction from QR-DQN–style value learning is our focus on the <em>state-value</em> return \( Z(s) \) rather than the state–action return \( Z(s,a) \).
+                This is crucial because (i) in LLMs the action space (the full vocabulary) is extremely large, making per-action distributions impractical; and
+                (ii) in actor–critic pipelines like PPO, the critic’s primary role is to estimate \( V(s) \) for advantage computation.
+                <strong>Therefore, we model the distribution of the state-value return \( Z(s) \)</strong>.
+                We denote the \(i\)-th quantile of this distribution by \( q^{(i)}(s) \).
+              </p>
+
+              <p>
+                Architecturally, we ensure the predicted state-value quantiles
+                \( \{\,q^{(1)}(s) &lt; q^{(2)}(s) &lt; \cdots &lt; q^{(N)}(s)\,\} \)
+                are strictly monotonic by design. The critic head predicts a central quantile and a sequence of non-negative deltas,
+                which are cumulatively added (left/right) to form the ordered quantiles (see “Center–Delta Quantile Head” below).
+              </p>
+
+              <h3 class="title is-5">3.1 Critic Update via Distributional GAE</h3>
+              <p>
+                For each timestep \(t\), we compute \(N\) quantile-wise TD errors based on the state-value function:
+              </p>
+              <p>
+                \[
+                  \delta_t^{(i)} \;=\; r_t \;+\; \gamma\, q_{\theta}^{(i)}(s_{t+1}) \;-\; q_{\theta}^{(i)}(s_t).
+                \]
+              </p>
+              <p>
+                Analogous to standard GAE, we define the distributional advantages recursively:
+              </p>
+              <p>
+                \[
+                  \mathcal{A}_t^{(i)} \;=\; \delta_t^{(i)} \;+\; \gamma\lambda\,\mathcal{A}_{t+1}^{(i)}
+                  \quad\Longleftrightarrow\quad
+                  \mathcal{A}_t^{(i)} \;=\; \sum_{k=0}^{\infty} (\gamma\lambda)^k \,\delta_{t+k}^{(i)} .
+                \]
+              </p>
+              <p>
+                The multi-step target for each quantile is
+              </p>
+              <p>
+                \[
+                  \hat{y}_t^{(i)} \;=\; q_{\theta}^{(i)}(s_t) \;+\; \mathcal{A}_t^{(i)}.
+                \]
+              </p>
+              <p>
+                With predicted quantiles \( \{q_\theta^{(i)}(s_t)\} \) and targets \( \{\hat{y}_t^{(j)}\} \), the critic minimizes the quantile Huber loss:
+              </p>
+              <p>
+                \[
+                \mathcal{L}_{\text{critic}}(\theta)
+                \;=\;
+                \mathbb{E}_{\tau}\!\left[
+                  \frac{1}{T}\sum_{t=0}^{T-1}
+                  \frac{1}{N^2}
+                  \sum_{i=1}^{N}\sum_{j=1}^{N}
+                  \rho_{\tau_i}^{\kappa}\!\Big(\hat{y}_t^{(j)} - q_\theta^{(i)}(s_t)\Big)
+                \right].
+                \]
+              </p>
+
+              <h3 class="title is-5">3.2 Uncertainty-Guided Exploration with DLTV</h3>
+              <p>
+                We design a <strong>Decaying Left-Truncated Variance (DLTV)</strong> bonus to operationalize optimism in the face of uncertainty.
+                The exploration bonus for state \(s\) at training step \(T_{\text{step}}\) is
+              </p>
+              <p>
+                \[
+                  \mathcal{B}_{T_{\text{step}}}(s) \;=\; \eta_{T_{\text{step}}} \cdot \sigma_{+}(s),
+                \]
+              </p>
+              <p>
+                where the <em>upper-tail</em> standard deviation is
+              </p>
+              <p>
+                \[
+                  \sigma_{+}(s)
+                  \;=\;
+                  \sqrt{\frac{1}{N/2}\;
+                    \sum_{i=\frac{N}{2}+1}^{N}
+                    \Big(q^{(i)}_\theta(s) - q^{(N/2)}_{\theta}(s)\Big)^2 }.
+                \]
+              </p>
+              <p>
+                The decay schedule gradually reduces exploration pressure:
+              </p>
+              <p>
+                \[
+                  \eta_{T_{\text{step}}}
+                  \;=\;
+                  c \cdot \sqrt{\frac{\log T_{\text{step}}}{\,T_{\text{step}}\,}} ,
+                \]
+              </p>
+              <p>
+                with coefficient \(c\) controlling the annealing rate.
+              </p>
+
+              <h3 class="title is-5">3.3 Actor Update with Optimistic Advantage</h3>
+              <p>
+                We first compute a scalar baseline value by averaging the predicted quantiles:
+              </p>
+              <p>
+                \[
+                  v_t \;=\; \frac{1}{N}\sum_{i=1}^{N} q_{\theta}^{(i)}(s_t).
+                \]
+              </p>
+              <p>
+                The standard (scalar) GAE is then
+              </p>
+              <p>
+                \[
+                  \delta_t \;=\; r_t + \gamma v_{t+1} - v_t,
+                  \qquad
+                  A_t \;=\; \delta_t + \gamma \lambda A_{t+1}.
+                \]
+              </p>
+              <p>
+                We obtain the <strong>optimistic advantage</strong> by augmenting \(A_t\) with the DLTV bonus on the next state and clipping for stability:
+              </p>
+              <p>
+                \[
+                  \tilde{A}_t(s_t,a_t)
+                  \;=\;
+                  A_t(s_t,a_t)
+                  \;+\;
+                  \min\!\Big(
+                    \alpha \cdot \mathcal{B}_{t+1}^{\text{detach}}(s_{t+1}),
+                    \;\frac{|A_t|}{\kappa}
+                  \Big).
+                \]
+              </p>
+              <p>
+                Here \( \alpha \) scales the bonus, \( \kappa \) controls relative clipping, and “detach” indicates the bonus is not back-propagated through the critic.
+                The optimistic advantage \( \tilde{A}_t \) is used in the PPO surrogate objective to update the policy.
+              </p>
+
+              <h3 class="title is-5">3.4 Center–Delta Quantile Head</h3>
+              <p>
+                To guarantee strictly ordered quantiles without post-hoc sorting, we use a <strong>center–delta</strong> head.
+                Given a hidden representation \(h_t\), one branch predicts a center quantile \(c_t\), and another predicts non-negative deltas
+                \( \{\Delta_k\}_{k=1}^{N-1} \) (via <code>softplus</code>). Splitting deltas to the left/right of the center index \(m=\lfloor N/2 \rfloor\) and cumulatively summing yields:
+              </p>
+              <p>
+                \[
+                  q_{m-r}(t) \;=\; c_t - \sum_{k=1}^{r}\Delta^{L}_{t,k},\quad
+                  q_{m}(t) \;=\; c_t,\quad
+                  q_{m+r}(t) \;=\; c_t + \sum_{k=1}^{r}\Delta^{R}_{t,k},
+                \]
+              </p>
+              <p>
+                ensuring \( q^{(1)}(t) &lt; q^{(2)}(t) &lt; \cdots &lt; q^{(N)}(t) \) by construction.
+              </p>
+
 
         </div>
       </div>
